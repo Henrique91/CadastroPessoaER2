@@ -1,64 +1,136 @@
 ﻿using System;
+using System.Threading;
 
 namespace CadastroPessoaER2
 {
     class Program
     {
         static void Main(string[] args)
+
         {
-            // PessoaFisica pf = new PessoaFisica();
-            // PessoaFisica novapf = new PessoaFisica();
-            // Endereco end = new Endereco();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine(@$"     
+=============================================
+|    Bem Vindo ao sistema de cadastro de    |
+|       pessoa Fisica e Juridica            |
+=============================================
+"); // "@" para aparencia de menu
 
-            // end.logradouro = "X";       
-            // end.numero = 100;
-            // end.complemento = "Proximo ao Senai Santa Cecilia";
-            // end.enderecoComercial = false;
+            BarraCarregamento("Iniciando");
 
-            // novapf.endereco = end;
-            // novapf.cpf = "123456789";
-            // novapf.nome = "Pessoa fisica";
-            // novapf.dataNascimento = new DateTime(2015,06,12);
 
-            // Console.WriteLine($"Rua: {novapf.endereco.logradouro}, numero: {novapf.endereco.numero}");
+            string opcao;
+            do
+            {
+                Console.WriteLine(@$"
             
-            // bool idadeValida = pf.ValidarDataNascimento(novapf.dataNascimento);
+==========================================
+|       Escolha uma das opções abaixo    |
+------------------------------------------
+|           1- Pessoa Fisica             |
+|           2- Pessoa Juridica           |
+|                                        |
+|           0- Sair                      |
+==========================================
+");
 
-            // if (idadeValida == true)
-            // {
-            //     Console.WriteLine($"Cadastro Aprovado!");
-                
-            // }else
-            // {
-            //     Console.WriteLine($"Cadastro reprovado!");
-                
-            // }
+                opcao = Console.ReadLine();
 
-            PessoaJuridica pj = new PessoaJuridica();
+                switch (opcao)
+                {
+                    case "1":
 
-            PessoaJuridica novaPj = new PessoaJuridica();
+                        PessoaFisica pf = new PessoaFisica();
+                        PessoaFisica novapf = new PessoaFisica();
+                        Endereco endpf = new Endereco();
 
-            Endereco end = new Endereco();
+                        endpf.logradouro = "X";
+                        endpf.complemento = "Proximo ao Senai Santa Cecilia";
+                        endpf.enderecoComercial = false;
 
-            end.logradouro = "X";
-            end.numero = 100;
-            end.complemento = "Proximo ao Senai Informatica";
-            end.enderecoComercial = true;
+                        novapf.endereco = endpf;
+                        novapf.cpf = "123456789";
+                        novapf.nome = "Pessoa fisica";
+                        novapf.dataNascimento = new DateTime(2000, 06, 12);
 
-            novaPj.endereco = end;
-            novaPj.cnpj = "12345678900001";
-            novaPj.razaoSocial = "Pessoa Juridica";
+                        Console.WriteLine($"Rua: {novapf.endereco.logradouro}, numero: {novapf.endereco.numero}");
 
-            if (pj.ValidarCNPJ(novaPj.cnpj)) // Validação para saber se é true
+                        bool idadeValida = pf.ValidarDataNascimento(novapf.dataNascimento);
+
+                        if (idadeValida == true)
+                        {
+                            Console.WriteLine($"Cadastro Aprovado!");
+
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Cadastro reprovado!");
+
+                        }
+                        break;
+
+                    case "2":
+
+                        PessoaJuridica pj = new PessoaJuridica();
+
+                        PessoaJuridica novaPj = new PessoaJuridica();
+
+                        Endereco endpj = new Endereco();
+
+                        endpj.logradouro = "X";
+                        endpj.numero = 100;
+                        endpj.complemento = "Proximo ao Senai Informatica";
+                        endpj.enderecoComercial = true;
+
+                        novaPj.endereco = endpj;
+                        novaPj.cnpj = "34567890000199";
+                        novaPj.razaoSocial = "Pessoa Juridica";
+
+                        if (pj.ValidarCNPJ(novaPj.cnpj)) // Validação para saber se é true
+                        {
+                            Console.WriteLine("CNPJ Válido");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"CNPJ Inválido");
+
+                        }
+                        break;
+
+                    case "0":
+
+                        Console.WriteLine($"Obrigado por utilizar nosso sistema!");
+                        BarraCarregamento("Finalizando");
+
+
+                        break;
+
+                    default:
+                        Console.WriteLine($"Opção invalida, digite uma opção válida");
+
+                        break;
+                }
+            } while (opcao != "0"); //Irá se repetir enquanto for diferente de zero
+        }
+        static void BarraCarregamento(string textoCarregamento)
+        {
+
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write(textoCarregamento);
+            Thread.Sleep(500);
+
+            for (var contador = 0; contador < 10; contador++)   //Laço contado (estrutura de repetição)
             {
-                Console.WriteLine("CNPJ Válido");
-            }else
-            {
-                Console.WriteLine($"CNPJ Inválido");
+
+                Console.Write(".");
+                Thread.Sleep(800);
 
             }
-
-
+            Console.ResetColor();
         }
     }
 }
