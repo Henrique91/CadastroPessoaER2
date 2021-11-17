@@ -53,6 +53,7 @@ namespace CadastroPessoaER2
                         novapf.endereco = endpf;
                         novapf.cpf = "123456789";
                         novapf.nome = "Pessoa fisica";
+                        novapf.rendimento = 6000;
                         novapf.dataNascimento = new DateTime(2000, 06, 12);
 
                         Console.WriteLine($"Rua: {novapf.endereco.logradouro}, numero: {novapf.endereco.numero}");
@@ -69,6 +70,10 @@ namespace CadastroPessoaER2
                             Console.WriteLine($"Cadastro reprovado!");
 
                         }
+
+                        Console.WriteLine(pf.PagarImposto(novapf.rendimento));
+                        
+
                         break;
 
                     case "2":
@@ -87,6 +92,7 @@ namespace CadastroPessoaER2
                         novaPj.endereco = endpj;
                         novaPj.cnpj = "34567890000199";
                         novaPj.razaoSocial = "Pessoa Juridica";
+                        novaPj.rendimento = 2000;
 
                         if (pj.ValidarCNPJ(novaPj.cnpj)) // Validação para saber se é true
                         {
@@ -97,6 +103,10 @@ namespace CadastroPessoaER2
                             Console.WriteLine($"CNPJ Inválido");
 
                         }
+
+                        Console.WriteLine(pj.PagarImposto(novaPj.rendimento).ToString("N2"));// .ToString("N2") Para adicionar casas decimais no retorno do numero
+                        
+
                         break;
 
                     case "0":
