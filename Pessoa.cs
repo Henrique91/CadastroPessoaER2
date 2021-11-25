@@ -7,7 +7,8 @@ namespace CadastroPessoaER2
       public Endereco endereco { get; set; }    
       
       public float rendimento { get; set; }
-       public abstract double PagarImposto(float salario);
+       
+      public abstract double PagarImposto(float salario);
  
     }
 }
