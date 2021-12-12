@@ -58,62 +58,84 @@ namespace CadastroPessoaER2
                         PessoaFisica novapf = new PessoaFisica();
                         Endereco endpf = new Endereco();
 
-                        Console.WriteLine($"Digite seu logradouro");
-                        endpf.logradouro = Console.ReadLine(); //console.Readline() para o usuário escrever no console o que foi solicitado no string do cwl
+                        // Console.WriteLine($"Digite seu logradouro");
+                        // endpf.logradouro = Console.ReadLine(); //console.Readline() para o usuário escrever no console o que foi solicitado no string do cwl
 
-                        Console.WriteLine($"Digite o numero do seu endereço");
-                        endpf.numero = int.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Digite o numero do seu endereço");
+                        // endpf.numero = int.Parse(Console.ReadLine());
 
-                        /*No caso acima não é possível utilizar apenas o Readline, pois ele armazena tipo string.
-                          É necessário fazer uma conversão para armazenar tipo int (numeo inteiro) utilizando o 
-                          ==int.Parse== antes do console.readline */
+                        // /*No caso acima não é possível utilizar apenas o Readline, pois ele armazena tipo string.
+                        //   É necessário fazer uma conversão para armazenar tipo int (numeo inteiro) utilizando o 
+                        //   ==int.Parse== antes do console.readline */
 
-                        Console.WriteLine($"Digite um complemento (aperte enter para vazio)");
-                        endpf.complemento = Console.ReadLine();
+                        // Console.WriteLine($"Digite um complemento (aperte enter para vazio)");
+                        // endpf.complemento = Console.ReadLine();
 
-                        Console.WriteLine($"Este endereço é comercial? S/N");
-                        string endComercial = Console.ReadLine().ToUpper();
-                        /* Criado variavel para saber se o endereço é comercial Sim ou Nao.
-                         Toupper converte caracter minusculo em maiusculo */
+                        // Console.WriteLine($"Este endereço é comercial? S/N");
+                        // string endComercial = Console.ReadLine().ToUpper();
+                        // /* Criado variavel para saber se o endereço é comercial Sim ou Nao.
+                        //  Toupper converte caracter minusculo em maiusculo */
 
-                        if (endComercial == "S")
-                        {
-                            endpf.enderecoComercial = true;
-                        }
-                        else
-                        {
-                            endpf.enderecoComercial = false;
-                        }
+                        // if (endComercial == "S")
+                        // {
+                        //     endpf.enderecoComercial = true;
+                        // }
+                        // else
+                        // {
+                        //     endpf.enderecoComercial = false;
+                        // }
 
-                        novapf.endereco = endpf;
+                        // novapf.endereco = endpf;
 
-                        Console.WriteLine($"Digite seu CPF (somente numeros)");
-                        novapf.cpf = Console.ReadLine();
+                        // Console.WriteLine($"Digite seu CPF (somente numeros)");
+                        // novapf.cpf = Console.ReadLine();
 
                         Console.WriteLine($"Digite seu nome");
                         novapf.nome = Console.ReadLine();
 
 
-                        Console.WriteLine($"Digite o valor do seu rendimento mensal (somente numeros)");
-                        novapf.rendimento = float.Parse(Console.ReadLine());
-                        /*Float.parse para converter string em float*/
+                        // Console.WriteLine($"Digite o valor do seu rendimento mensal (somente numeros)");
+                        // novapf.rendimento = float.Parse(Console.ReadLine());
+                        // /*Float.parse para converter string em float*/
 
-                        Console.WriteLine($"Digite sua data de nascimnto Ex: AAAA-MM-DD");
-                        novapf.dataNascimento = DateTime.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Digite sua data de nascimnto Ex: AAAA-MM-DD");
+                        // novapf.dataNascimento = DateTime.Parse(Console.ReadLine());
 
 
-                        bool idadeValida = pf.ValidarDataNascimento(novapf.dataNascimento);
+                        // bool idadeValida = pf.ValidarDataNascimento(novapf.dataNascimento);
 
-                        if (idadeValida == true)
+                        // if (idadeValida == true)
+                        // {
+                        //     Console.WriteLine($"Cadastro Aprovado!");
+                        //     listapf.Add(novapf);
+                        //     Console.WriteLine(pf.PagarImposto(novapf.rendimento));
+
+                        // }
+                        // else
+                        // {
+                        //     Console.WriteLine($"Cadastro reprovado!");
+                        // }
+
+
+                        // StreamWriter sw = new StreamWriter($"{novapf.nome}.txt"); //Criando arquvio .txt ( StreamWriter) utilizar biblioteca system.IO
+                        // sw.Write(novapf.nome); // escrevendo dentro do arquivo
+                        // sw.Close(); //Fechando o arquivo
+
+                        using (StreamWriter sw = new StreamWriter($"{novapf.nome}.txt")) //utilização do using(), náo precisa usar o close daí ele fecha automaticamente
                         {
-                            Console.WriteLine($"Cadastro Aprovado!");
-                            listapf.Add(novapf);
-                            Console.WriteLine(pf.PagarImposto(novapf.rendimento));
-
+                            sw.Write(novapf.nome); // escrevendo dentro do arquivo 
                         }
-                        else
+
+                        using (StreamReader sr = new StreamReader($"{novapf.nome}.txt")) // Para ler
                         {
-                            Console.WriteLine($"Cadastro reprovado!");
+                            string linha;
+
+                            while ((linha = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{linha}");
+                                
+                            }
+                             
                         }
 
 
@@ -170,7 +192,7 @@ namespace CadastroPessoaER2
 
                         Console.WriteLine($"Digite um complemento (aperte enter para vazio)");
                         endpj.complemento = Console.ReadLine();
-
+                        
 
                         Console.WriteLine($"Este endereço é comercial? S/N");
                         string endComercialPj = Console.ReadLine().ToUpper();
@@ -217,8 +239,17 @@ namespace CadastroPessoaER2
                         Thread.Sleep (500);
                         Console.WriteLine($"O valor do imposto é:");
                         Console.WriteLine ( pj.PagarImposto (novaPj.rendimento));
-                        
 
+                        pj.VerificarArquivo(pj.caminho);
+                        pj.Inserir(novaPj);
+
+                        foreach (var item in pj.Ler())
+                        {
+                            Console.WriteLine($"Nome: {item.nome} - Razao Social:{item.razaoSocial} - CNPJ:{item.cnpj}");
+                            
+                        }
+                        
+                        
 
                         break;
 
